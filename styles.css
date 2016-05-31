@@ -8,27 +8,32 @@ body{
     font-family: "Georgia", Arial, Verdana;
     font-size: 14px;
 }
-
-
-#postContainer{
-    width: 600px;
-    background-color: #fff;
+#pageContainer{
+    width: 50%;
     margin: 0 auto;
     margin-top: 10px;
+    /*border: 1px solid #E4EBEF;*/
+}
+
+#postContainer{
+    background-color: #fff;
+    width: 70%;
     padding: 10px;
     border: 1px solid #E4EBEF;
     border-radius: 5px;
+    float: left;
+    margin-left: 10px;
 }
 
 #profile{
-    width: 200px;
+    width: 25%;
     background-color: #fff;
-    margin-left: 10px;
+   
     border: 1px solid #E4EBEF;
     border-radius: 5px;
     padding: 5px;
     float: left;
-    position: fixed;
+    /*position: fixed;*/
 }
 
 #posting{
@@ -68,7 +73,7 @@ body{
     width: 85%;
 }
 
-#pageContainer{
+/*#pageContainer{
     width: 100%;
     position: relative;
-}
+}*/

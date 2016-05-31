@@ -1,46 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Template</title>
-    <link href="styles.css" rel="stylesheet"/>
-  </head>
-  <body>
-    <div id="pageContainer">
-    <div id="profile">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla finibus justo, et varius purus tincidunt sed. Vestibulum sed condimentum mauris.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla finibus justo, et varius purus tincidunt sed. Vestibulum sed condimentum mauris.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla finibus justo, et varius purus tincidunt sed. Vestibulum sed condimentum mauris.
-    </div>
-    <div id="postContainer">
-        <div id="posting">
-        <form>
-        <textarea cols="60" rows="2"></textarea>
-        <input type="submit" name="post" value="Post" />
-        </form>
-        </div>
-        <div id="postedContent">
-        <?php
-        for($i=0;$i<10;$i++){
-        ?>
-        <div class="post">
-            <div class="avatar"></div>
-            <div class="postContent">
-                <h3>Handle</h3>
-                <p class="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla finibus justo, et varius purus tincidunt sed. Vestibulum sed condimentum mauris.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla finibus justo, et varius purus tincidunt sed. Vestibulum sed condimentum mauris.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla finibus justo, et varius purus tincidunt sed. Vestibulum sed condimentum mauris.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla finibus justo, et varius purus tincidunt sed. Vestibulum sed condimentum mauris.</p>
-            </div>
-            <div class="clear"></div>
-        </div>
-        
-        <?php
-        }
-        ?>
-        
-        </div>
-        <div class="clear"></div>
-    </div>
-    </div>
-  </body>
-</html>
+<?php
+//echo readfile('php://input');
+$script_name = $_SERVER['SCRIPT_NAME'];
+$request_uri = $_SERVER['REQUEST_URI'];
+
+$uri = substr($request_uri, strlen($_SERVER['SCRIPT_NAME']));
+$segments = explode('/', $uri);
+print_r($segments);
+
+$class = $segments[1];
+$param = $segments[2];
+
+$obj = new $class();
+
+if(method_exists($obj, $param) && is_callable(array($obj, $param))){
+    call_user_func(array($obj, $param));
+}else{
+    call_user_func(array($obj, 'index'));
+}
+
+
+function __autoload($classname)
+{
+    require_once('Controllers/'.ucfirst($classname).'.php');
+}
+
+//print_r($_SERVER);
+//print_r($_GET);
+//echo $uri;
