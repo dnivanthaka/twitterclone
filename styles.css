@@ -38,7 +38,7 @@ body{
     /*background-color: #E5F2F7;*/
 }
 
-#posting input[type="text"]{
+#posting textarea{
     border: solid 1px #BFE0EC;
     padding: 5px;
 }
