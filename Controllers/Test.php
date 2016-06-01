@@ -1,11 +1,11 @@
 <?php
 class Test{
-    public function testMe(){
-        echo 'testMeXXX';
+    public function testMe($p1, $p2){
+        echo 'testMeXXX - p1 = '.$p1.' p2 = '.$p2;
     }
     
-    public function index(){
-        echo 'Im in index';
+    public function index($p1, $p2, $p3){
+        echo 'Im in index - p1 = '.$p1.' p2 = '.$p2. ' p3 = '.$p3;
     }
 }
 
