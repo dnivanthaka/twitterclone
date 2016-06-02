@@ -1,5 +1,5 @@
 <?php
-require_once('config/config.php');
+require_once('sys/config/config.php');
 //http://www.w3schools.com/php/php_error.asp
 
 //echo readfile('php://input');
@@ -23,6 +23,17 @@ if(count($segments) > 1 && !empty($segments[1])){
     
     $class = $params[0];
     $param = $params[1];
+    
+    //print_r($config['app_dir'].'/'.'controllers'.'/'.$class);
+    
+    /*if(is_dir($config['app_dir'].'/'.'controllers'.'/'.$class)){
+        $class = $param;
+        $param = $params[2];
+        
+        $params = array_slice($params, 1);
+    }*/
+    
+    //print_r($params);
 
     $obj = new $class();
 
@@ -46,18 +57,45 @@ if(count($segments) > 1 && !empty($segments[1])){
 
 function __autoload($classname)
 {
-    require_once('Controllers/'.ucfirst($classname).'.php');
+    global $config;
     
-    if(!class_exists(ucfirst($classname), false)){
+    $filename = '';
+    $fullnamespace = '';
+    
+    if (($lastnspos = strripos($classname, '\\')) !== false) {
+        $namespace = substr($classname, 0, $lastnspos);
+        $classname = substr($classname, $lastnspos + 1);
+        $filename = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
+        $fullnamespace = '\\'.$namespace.'\\';
+    }
+    
+    //Include parent core class
+    include_once($config['system_dir'].DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR.'Controller.php');
+    // Here we first try to load the class from the controllers of app directory
+    // Then we look it in entities, lib directory in app and finally the lib directory in core directory
+    if(is_file($config['app_dir'].DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.$filename.ucfirst($classname).'.php')){
+    
+        include_once($config['app_dir'].DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.$filename.ucfirst($classname).'.php');
+        
+    }else if(is_file($config['app_dir'].DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.$filename.ucfirst($classname).'.php')){
+        
+        include_once($config['app_dir'].DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.$filename.ucfirst($classname).'.php');
+        
+    }else if(is_file($config['app_dir'].DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR.$filename.ucfirst($classname).'.php')){
+    
+        include_once($config['app_dir'].DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR.$filename.ucfirst($classname).'.php');
+        
+    }else{
+    
+        include_once($config['system_dir'].DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR.$filename.ucfirst($classname).'.php');
+    }
+    
+    if(!class_exists($fullnamespace.ucfirst($classname), false)){
         //header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
         //echo 'Class does not exist';
         $error = 'Class does not exist - '.ucfirst($classname);
-        require_once('error_pages/404.php');
+        require_once($config['system_dir'].'/'.'error_pages/404.php');
         exit();
     }
 }
 
-
-//print_r($_SERVER);
-//print_r($_GET);
-//echo $uri;
