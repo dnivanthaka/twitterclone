@@ -93,7 +93,8 @@ function __autoload($classname)
     if(!class_exists($fullnamespace.ucfirst($classname), false)){
         //header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
         //echo 'Class does not exist';
-        $error = 'Class does not exist - '.ucfirst($classname);
+        $heading = 'Class does not exist';
+        $error = ucfirst($classname);
         require_once($config['system_dir'].'/'.'error_pages/404.php');
         exit();
     }
