@@ -9,7 +9,7 @@ class View
     }
     
     public function load($viewname){
-        include($this->config->keys['app_dir'].DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.$viewname.'.php');
+        include($this->config->item('app_dir').DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.$viewname.'.php');
     }
 
 }

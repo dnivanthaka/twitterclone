@@ -2,7 +2,7 @@
 
 class Config
 {
-    public $keys;
+    private $keys;
 
     public function __construct(){
         global $config;
@@ -10,6 +10,23 @@ class Config
         require_once($config['system_dir'].DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'config.php');
         
         $this->keys = $config;
+    }
+    
+    public function item($key){
+        
+        if(array_key_exists($key, $this->keys))
+            return $this->keys[$key];
+        else
+            return null;
+    }
+    
+    public function site_url(){
+        return $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'];
+    }
+    
+    public function base_url(){
+        $url = $this->site_url();
+        return substr($url, 0, strrpos($url, '/'));
     }
 
 }
