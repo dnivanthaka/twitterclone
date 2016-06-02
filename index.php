@@ -69,9 +69,10 @@ function __autoload($classname)
         $fullnamespace = '\\'.$namespace.'\\';
     }
     
-    //Include parent core class
+    //Include parent core classes
     include_once($config['system_dir'].DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR.'Controller.php');
     include_once($config['system_dir'].DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR.'View.php');
+    include_once($config['system_dir'].DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR.'Config.php');
     
     
     // Here we first try to load the class from the controllers of app directory
