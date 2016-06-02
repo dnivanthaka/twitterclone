@@ -2,9 +2,10 @@
 
 class Controller
 {
+    protected $view;
 
     public function __construct(){
-        echo 'Parent Construct';
+        $this->view = new View();
     }
 
 }

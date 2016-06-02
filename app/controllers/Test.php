@@ -15,6 +15,9 @@ class Test extends Controller{
         $user2 = new \Role();
         
         $user2->testCall();
+        
+        $this->view->load('testView');
+        $this->view->load('common/testHeader');
     }
 }
 

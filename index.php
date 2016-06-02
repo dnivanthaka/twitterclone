@@ -71,11 +71,14 @@ function __autoload($classname)
     
     //Include parent core class
     include_once($config['system_dir'].DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR.'Controller.php');
+    include_once($config['system_dir'].DIRECTORY_SEPARATOR.'core'.DIRECTORY_SEPARATOR.'View.php');
+    
+    
     // Here we first try to load the class from the controllers of app directory
     // Then we look it in entities, lib directory in app and finally the lib directory in core directory
-    if(is_file($config['app_dir'].DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.$filename.ucfirst($classname).'.php')){
-    
-        include_once($config['app_dir'].DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.$filename.ucfirst($classname).'.php');
+    if(is_file($config['app_dir'].DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.ucfirst($classname).'.php')){
+   
+        include_once($config['app_dir'].DIRECTORY_SEPARATOR.'controllers'.DIRECTORY_SEPARATOR.ucfirst($classname).'.php');
         
     }else if(is_file($config['app_dir'].DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.$filename.ucfirst($classname).'.php')){
         
