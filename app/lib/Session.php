@@ -3,12 +3,21 @@ session_start();
 
 class Session{
     private $session_id;
+    private static $instance;
     
-    public function __construct(){
+    private function __construct(){
         $session_id = session_id();
     }
     
-    public function destroy_session(){
+    public static function getInstance(){
+        if(!isset(self::$instance)){
+            self::$instance = new Session();
+        }
+        //var_dump(self::$instance);
+        return self::$instance;
+    }
+    
+    public function destroy(){
         session_destroy();
     }
     
@@ -24,5 +33,9 @@ class Session{
     
     public function get($key){
         return $_SESSION[$key];
+    }
+    
+    public function remove($key){
+        unset($_SESSION[$key]);
     }
 }

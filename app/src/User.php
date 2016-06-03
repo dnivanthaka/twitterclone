@@ -1,22 +1,22 @@
 <?php
-require_once('DBHandling.php');
-require_once('Session.php');
-
 class User{
   const COLLECTION = 'users';
   private $_mongo;
   private $_collection;
   private $_user;
+  private $_session;
   
   public function __construct(){
+    $this->_session = Session::getInstance(); 
     $this->_mongo = DBHandling::getInstance();
+    
     $this->_collection = $this->_mongo->getCollection(User::COLLECTION);
     if($this->isLoggedIn())
-      $this->_loadData();
+      $this->_loadData();   
   }
   
   public function isLoggedIn(){
-    return isset($_SESSION['user_id']);
+    return $this->_session->get('user_id');
   }
   
   public function authenticate($username, $password){
@@ -28,12 +28,12 @@ class User{
     $this->_user = $this->_collection->findOne($query);
     if(empty($this->_user)) return false;
     
-    $_SESSION['user_id'] = (string)$this->_user['_id'];
+    $this->_session->put('user_id', (string)$this->_user['_id']);
     return true;
   }
   
   public function logout(){
-    unset($_SESSION['user_id']);
+    $this->_session->remove('user_id');
   }
   
   public function __get($attr){
@@ -57,7 +57,7 @@ class User{
   }
   
   private function _loadData(){
-    $id = new MongoId($_SESSION['user_id']);
+    $id = new MongoId($this->_session->get('user_id'));
     
     $this->_user = $this->_collection->findOne(array('_id'=>$id));
   }

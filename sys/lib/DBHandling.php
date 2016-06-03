@@ -3,7 +3,7 @@ class DBHandling
 {
   const HOST = 'localhost';
   const PORT = 27017;
-  const NAME = 'phpblog';
+  const NAME = 'twitterclone';
   
   private $host;
   private $port;
