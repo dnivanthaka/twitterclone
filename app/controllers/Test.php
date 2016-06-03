@@ -8,7 +8,7 @@ class Test extends Controller{
     public function index($p1, $p2, $p3){
         echo 'Im in index - p1 = '.$p1.' p2 = '.$p2. ' p3 = '.$p3;
         
-        $user = new my\entities\Role();
+        $user = new \my\entities\Role();
         
         $user->testCall();
         

@@ -12,9 +12,9 @@ class Login extends Controller{
     public function index(){
         //echo $this->session->get('TEST');
         
-        $this->view->load('common/header');
+        //$this->view->load('common/header');
         $this->view->load('forms/login');
-        $this->view->load('common/footer');
+        //$this->view->load('common/footer');
     }
     
     public function submit(){
