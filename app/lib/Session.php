@@ -1,11 +1,12 @@
 <?php
-session_start();
 
 class Session{
     private $session_id;
     private static $instance;
     
     private function __construct(){
+        session_start();
+    
         $session_id = session_id();
     }
     

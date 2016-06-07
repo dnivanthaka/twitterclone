@@ -5,6 +5,8 @@
 class Login extends Controller{
     private $_session;
     private $_db;
+   
+    //private $_user;
     
     public function __construct(){
         parent::__construct();
@@ -23,6 +25,7 @@ class Login extends Controller{
     
     public function submit(){
         $user = new User();
+        
         if($user->authenticate($_POST['username'], $_POST['password'])){
             //put any addditional session data creations here
             $this->config->redirect('home');
@@ -32,6 +35,7 @@ class Login extends Controller{
     }
     
     public function logout(){
+        //logout();
         $this->_session->destroy();
         
         $this->config->redirect('login');
