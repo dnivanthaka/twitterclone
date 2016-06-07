@@ -13,7 +13,6 @@ class Config
     }
     
     public function item($key){
-        
         if(array_key_exists($key, $this->keys))
             return $this->keys[$key];
         else
@@ -27,6 +26,18 @@ class Config
     public function base_url(){
         $url = $this->site_url();
         return substr($url, 0, strrpos($url, '/'));
+    }
+    
+    public function redirect($url){
+        //http://regexone.com/references/php
+        if(preg_match("@^(https?://)([^/]+)@i", $url)){
+            header("Location: ${url}");
+        }else{
+            $url = $this->site_url().'/'.$url;
+            header("Location: ${url}");
+        }
+        //header("Location: ${url}");
+        exit();
     }
 
 }

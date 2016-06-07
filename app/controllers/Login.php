@@ -16,8 +16,6 @@ class Login extends Controller{
     }
     
     public function index(){
-        //echo $this->session->get('TEST');
-        
         //$this->view->load('common/header');
         $this->view->load('forms/login');
         //$this->view->load('common/footer');
@@ -26,14 +24,17 @@ class Login extends Controller{
     public function submit(){
         $user = new User();
         if($user->authenticate($_POST['username'], $_POST['password'])){
-            echo 'Success';
+            //put any addditional session data creations here
+            $this->config->redirect('home');
         }else{
             echo 'Failed';
         }
+    }
+    
+    public function logout(){
+        $this->_session->destroy();
         
-        
-        echo $_POST['username'].' - '.$_POST['password'];
-        
+        $this->config->redirect('login');
     }
 }
 
