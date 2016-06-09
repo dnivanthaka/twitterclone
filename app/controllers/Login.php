@@ -18,6 +18,12 @@ class Login extends Controller{
     }
     
     public function index(){
+        //Testing code only
+        $qb = new QueryBuilder(null);
+        echo $qb->insert('test', array('col1'=>'val1', 'col2'=>'val 2'));
+        echo $qb->insert('test', array('val1', 'val 2'));
+        
+    
         //$this->view->load('common/header');
         $this->view->load('forms/login');
         //$this->view->load('common/footer');
