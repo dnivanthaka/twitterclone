@@ -6,8 +6,8 @@ class Controller
     protected $config;
 
     public function __construct(){       
-        $this->config = new Config();
-        $this->view   = new View($this->config); 
+        $this->config = Config::getInstance();
+        $this->view   = new View(); 
     }
 
 }

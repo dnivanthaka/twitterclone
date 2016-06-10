@@ -8,7 +8,9 @@
     <title><?php echo $this->config->item('system_name'); ?></title>
 
     <!-- Bootstrap -->
-    <link href="<?php echo $this->config->base_url(); ?>/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $this->config->base_url(); ?>/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Theme -->
+    <link href="<?php echo $this->config->base_url(); ?>/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -17,4 +19,5 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body>
+  <body role="document">
+  <div class="container" role="main">

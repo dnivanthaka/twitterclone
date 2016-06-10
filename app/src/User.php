@@ -13,6 +13,7 @@ class User{
     $this->_mongo   = DBHandling::getInstance();
     
     $this->_collection = $this->_mongo->getCollection(User::COLLECTION);
+    
     if($this->isLoggedIn())
       $this->_load();   
   }
@@ -24,7 +25,7 @@ class User{
   public function authenticate($username, $password){
     $query = array(
       'username' => $username,
-      'password' => md5($password)
+      'password' => sha1($password)
     );
     
     $this->_user = $this->_collection->findOne($query);

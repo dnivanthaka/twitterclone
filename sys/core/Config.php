@@ -3,13 +3,23 @@
 class Config
 {
     private $keys;
+    
+    private static $instance;
 
-    public function __construct(){
+    private function __construct(){
         global $config;
         
         require_once($config['system_dir'].DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'config.php');
         
         $this->keys = $config;
+    }
+    
+    public static function getInstance(){
+        if(!isset(self::$instance)){
+          self::$instance = new Config();
+        }
+        //var_dump(self::$instance);
+        return self::$instance;
     }
     
     public function item($key){

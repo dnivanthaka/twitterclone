@@ -2,9 +2,10 @@
 //http://startbootstrap.com/template-categories/all/
 //http://getbootstrap.com/getting-started/
 
-class Login extends Controller{
+class CreateUsers extends Controller{
     private $_session;
     private $_db;
+    private $_collection;
    
     //private $_user;
     
@@ -15,6 +16,13 @@ class Login extends Controller{
         $this->_session->put('TEST', '123');
         
         $this->_db = DBHandling::getInstance();
+        $this->_collection = $this->_db->getCollection(User::COLLECTION);
+        
+        if($this->_collection->count() == 0){
+            echo 'No users';
+        }else{
+            echo $this->_collection->count().' users found.';  
+        }
     }
     
     public function index(){
@@ -23,28 +31,15 @@ class Login extends Controller{
         //echo $qb->insert('test', array('col1'=>'val1', 'col2'=>'val 2'));
         //echo $qb->insert('test', array('val1', 'val 2'));
         
-    
-        //$this->view->load('common/header');
-        $this->view->load('forms/login');
-        //$this->view->load('common/footer');
     }
     
-    public function submit(){
-        $user = new User();
-        
-        if($user->authenticate($_POST['username'], $_POST['password'])){
-            //put any addditional session data creations here
-            $this->config->redirect('home');
-        }else{
-            echo 'Failed';
-        }
+    public function remove(){
+        $this->_collection->remove();
     }
     
-    public function logout(){
-        //logout();
-        $this->_session->destroy();
-        
-        $this->config->redirect('login');
+    public function insert(){
+        $this->_collection->insert(array('username'=>'root', 'password'=>sha1('root')));
     }
+    
 }
 
