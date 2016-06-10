@@ -23,7 +23,7 @@
 <!-- Page Content -->
     <div class="container">
     <form class="form-signin" method="post" action="<?php echo $this->config->site_url(); ?>/login/submit">
-        <h2 class="form-signin-heading">Please log in</h2>
+        <h2 class="form-signin-heading">Please Sign in</h2>
         <label for="inputEmail" class="sr-only">Username</label>
         <input type="text" id="inputEmail" name="username" class="form-control" placeholder="Username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>

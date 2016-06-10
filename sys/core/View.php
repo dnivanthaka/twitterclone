@@ -11,7 +11,14 @@ class View
         $this->config = Config::getInstance();
     }
     
-    public function load($viewname){
+    public function load($viewname, &$data = NULL){
+        
+        if(is_array($data)){
+            foreach($data as $key => $value){
+                $$key = $value;
+            }
+        }
+    
         if(isset($this->_template_header)){
             include($this->config->item('app_dir').DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.$this->_template_header.'.php');
         }

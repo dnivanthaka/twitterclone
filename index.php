@@ -41,9 +41,15 @@ if(count($segments) > 1 && !empty($segments[1])){
         $func_args = array_slice($params, 2);
     
         call_user_func_array(array(&$obj, $param), $func_args);
-    }else{
+    }else if(!isset($param)){
         $func_args = array_slice($params, 1);
         call_user_func_array(array(&$obj, 'index'), $func_args);
+    }else{
+        $heading = 'Method does not exist';
+        //$error = $param.' in line number '.__LINE__.' on '.__FILE__;
+        $error = $param;
+        require_once($config['system_dir'].'/'.'error_pages/404.php');
+        exit();
     }
 
 }else{
