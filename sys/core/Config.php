@@ -9,9 +9,22 @@ class Config
     private function __construct(){
         global $config;
         
-        require_once($config['system_dir'].DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'config.php');
+        //$this->parseConfigs($config['system_dir'].DIRECTORY_SEPARATOR.'config');
         
+        require_once($config['system_dir'].DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'config.php');       
         $this->keys = $config;
+        //
+    }
+    
+    private function parseConfigs($dir){
+        $files = $this->readConfigs($dir);
+        //print_r($files);
+        foreach($files as $file){
+            require($dir.DIRECTORY_SEPARATOR.$file);
+            $this->keys[] = $export_var;
+            //print_r($export_var);
+            
+        }
     }
     
     public static function getInstance(){
@@ -20,6 +33,10 @@ class Config
         }
         //var_dump(self::$instance);
         return self::$instance;
+    }
+    
+    public function vardump(){
+        var_dump($this->keys);
     }
     
     public function item($key){
@@ -50,5 +67,26 @@ class Config
         exit();
     }
 
+    private function readConfigs($dir)
+    {
+        $files = array();
+        
+        $dh = opendir($dir);
+        while(false !== ($file = readdir($dh))){
+            if($file != '.' && $file != '..' && !strrpos($file, '.html')){
+                $files[] = $file;
+            }
+        }
+        
+        return $files;
+    }
+    
+    public function parseConfig($file){
+        require_once($this->keys['system_dir'].DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.$file.'.php');       
+        //$this->keys = $$file;
+        //print_r($$file);
+        
+        return $$file;
+    }
 }
 

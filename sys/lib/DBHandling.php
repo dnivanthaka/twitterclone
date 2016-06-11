@@ -10,14 +10,20 @@ class DBHandling
   private $dbname;
   private $connection;
   private $database;
-  
+  private $config;
+
+
   private static $instance;
   
-  
-  private function __construct($host, $name, $port){
-    $this->host = $host;
-    $this->dbname = $name;
-    $this->port = $port;
+  private function __construct(){
+    
+    
+    $this->config = Config::getInstance();
+    $config = $this->config->parseConfig('database');
+    
+    $this->host   = $config[0]['host'];
+    $this->dbname = $config[0]['database'];
+    $this->port   = $config[0]['port'];
     
     $connectionstr = sprintf("mongodb://%s:%d", $this->host, $this->port);
     try{
@@ -29,8 +35,8 @@ class DBHandling
   }
   
   public static function getInstance(){
-    if(!isset(self::$instance)){
-      self::$instance = new DBHandling(DBHandling::HOST, DBHandling::NAME, DBHandling::PORT);
+    if(!isset(self::$instance)){  
+        self::$instance = new DBHandling();
     }
     //var_dump(self::$instance);
     return self::$instance;
